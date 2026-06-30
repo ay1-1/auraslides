@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { 
-  Plus, Grid, List, Trash2, Edit2, Download, Clock, Sparkles, 
+  Plus, Grid, List, Trash2, Edit2, Download, Clock, Cpu, 
   Layers, Search, FileText, FileDown, Trash, Shield, ArrowUpRight, BarChart3, HelpCircle, LogOut
 } from 'lucide-react';
 import { Presentation, PresentationTheme, THEMES } from '../types';
 import { exportToPPTX, exportToPDF } from '../utils/export';
 import { motion, AnimatePresence } from 'motion/react';
+import Logo from './Logo';
 
 interface DashboardProps {
   presentations: Presentation[];
@@ -59,12 +60,7 @@ export default function Dashboard({
 
       {/* Top Header Navigation */}
       <header className="bg-slate-900/80 backdrop-blur-md border-b border-slate-800/80 px-6 py-4 flex items-center justify-between sticky top-0 z-40 shrink-0" id="header-nav">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-gradient-to-tr from-indigo-500 to-rose-500 rounded-lg flex items-center justify-center text-white shadow-md shadow-indigo-500/10">
-            <Sparkles className="w-5 h-5" />
-          </div>
-          <span className="text-xl font-black tracking-tight text-white">AuraSlides</span>
-        </div>
+        <Logo className="h-8 sm:h-9" />
 
         <div className="flex items-center gap-4">
           <div className="text-right hidden sm:block">

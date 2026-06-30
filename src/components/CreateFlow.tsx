@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Sparkles, ArrowLeft, Sliders, Layers, Eye, Check, Plus, 
+  Cpu, ArrowLeft, Sliders, Layers, Eye, Check, Plus, 
   Trash, ArrowUp, ArrowDown, HelpCircle, AlertCircle, RefreshCw, Compass
 } from 'lucide-react';
 import { PresentationTheme, THEMES, Slide } from '../types';
@@ -390,8 +390,8 @@ export default function CreateFlow({ onBackToDashboard, onPresentationCreated, t
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-4 h-4 text-indigo-300 animate-pulse" />
-                  <span>Generate Slide Outline</span>
+                  <Cpu className="w-4 h-4 text-indigo-300 animate-pulse" />
+                  <span>Create Slide Outline</span>
                 </>
               )}
             </motion.button>
@@ -488,8 +488,8 @@ export default function CreateFlow({ onBackToDashboard, onPresentationCreated, t
                 className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-indigo-600/10 flex items-center justify-center gap-2 cursor-pointer transition-all"
                 id="generate-slides-final-btn"
               >
-                <Sparkles className="w-4 h-4 text-indigo-300" />
-                <span>Compile & Generate Slides</span>
+                <Cpu className="w-4 h-4 text-indigo-300" />
+                <span>Compile & Create Slides</span>
               </button>
             </div>
           </div>
@@ -502,7 +502,7 @@ export default function CreateFlow({ onBackToDashboard, onPresentationCreated, t
               <div className="absolute inset-0 border-4 border-slate-800 rounded-full" />
               <div className="absolute inset-0 border-4 border-t-indigo-500 rounded-full animate-spin" />
               <div className="absolute inset-0 flex items-center justify-center text-indigo-400">
-                <Sparkles className="w-8 h-8 animate-pulse" />
+                <Cpu className="w-8 h-8 animate-pulse" />
               </div>
             </div>
 

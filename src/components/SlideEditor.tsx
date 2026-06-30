@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  ArrowLeft, Save, Sparkles, Download, Layers, Play, Settings, 
+  ArrowLeft, Save, Cpu, Download, Layers, Play, Settings, 
   Plus, Trash, ArrowUp, ArrowDown, ChevronRight, Image as ImageIcon, 
   FileDown, Check, Layout, AlertCircle, RefreshCw, FileText, Maximize2,
   X, HelpCircle, Eye, Upload, Palette, Share2, Copy
@@ -292,14 +292,14 @@ export default function SlideEditor({ presentation: initialPresentation, onBackT
             a.click();
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
-            showToast("Server-rendered PowerPoint editable PPTX exported! 🚀");
+            showToast("Server-rendered PowerPoint editable PPTX exported!");
             return;
           }
         } catch (serverErr) {
           console.warn("Server export failed, falling back to local PPTX writer", serverErr);
         }
         await exportToPPTX(presentation);
-        showToast("PowerPoint editable PPTX exported! 🚀");
+        showToast("PowerPoint editable PPTX exported!");
       } else if (format === 'pdf') {
         try {
           const res = await fetch("/api/export/pdf", {
@@ -375,7 +375,7 @@ export default function SlideEditor({ presentation: initialPresentation, onBackT
             exit={{ opacity: 0, y: 15 }}
             className="fixed bottom-6 right-6 z-50 bg-indigo-600 text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-xl shadow-xl shadow-indigo-950/40 border border-indigo-500/30 flex items-center gap-2"
           >
-            <Sparkles className="w-4 h-4 animate-spin text-indigo-300" />
+            <Cpu className="w-4 h-4 animate-spin text-indigo-300" />
             <span>{toastMsg}</span>
           </motion.div>
         )}
@@ -837,7 +837,7 @@ export default function SlideEditor({ presentation: initialPresentation, onBackT
                   {imageLoading ? (
                     <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                   ) : (
-                    <Sparkles className="w-3.5 h-3.5" />
+                    <Cpu className="w-3.5 h-3.5" />
                   )}
                   <span>{imageLoading ? 'Synthesizing...' : 'Regenerate Image'}</span>
                 </button>

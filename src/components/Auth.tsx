@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Mail, Lock, User as UserIcon, Sparkles, ChevronRight, AlertCircle, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Mail, Lock, User as UserIcon, Cpu, ChevronRight, AlertCircle, ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
 import { User } from '../types';
+import Logo from './Logo';
 
 interface AuthProps {
   onAuthSuccess: (user: User, token: string) => void;
@@ -120,11 +121,7 @@ export default function Auth({ onAuthSuccess, onBackToHome }: AuthProps) {
 
         {/* App Branding */}
         <div className="flex flex-col items-center mb-8 pt-4" id="auth-branding">
-          <div className="w-12 h-12 bg-gradient-to-tr from-indigo-500 to-rose-500 rounded-xl flex items-center justify-center text-white shadow-lg mb-3">
-            <Sparkles className="w-6 h-6 animate-pulse" />
-          </div>
-          <h1 className="text-2xl font-black tracking-tight text-white">AuraSlides</h1>
-          <p className="text-xs text-indigo-200/60 mt-1">Premium AI Presentation & Document Suite</p>
+          <Logo className="h-10 sm:h-12 mb-1" onClick={onBackToHome} />
         </div>
 
         {/* Error notice */}
@@ -138,7 +135,7 @@ export default function Auth({ onAuthSuccess, onBackToHome }: AuthProps) {
         {/* Success notice */}
         {successMsg && (
           <div className="mb-5 p-3.5 bg-emerald-950/40 border border-emerald-900/30 rounded-xl flex items-start gap-3 text-emerald-300 text-xs" id="auth-success">
-            <Sparkles className="w-4 h-4 shrink-0 mt-0.5 text-emerald-400" />
+            <CheckCircle className="w-4 h-4 shrink-0 mt-0.5 text-emerald-400" />
             <span>{successMsg}</span>
           </div>
         )}

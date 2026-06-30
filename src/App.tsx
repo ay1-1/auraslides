@@ -5,7 +5,7 @@ import Auth from './components/Auth';
 import Dashboard from './components/Dashboard';
 import CreateFlow from './components/CreateFlow';
 import SlideEditor from './components/SlideEditor';
-import { Sparkles } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -99,9 +99,9 @@ export default function App() {
       <div className="min-h-screen bg-slate-50 flex items-center justify-center font-sans">
         <div className="text-center space-y-4">
           <div className="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center text-white mx-auto animate-spin">
-            <Sparkles className="w-6 h-6" />
+            <Cpu className="w-6 h-6" />
           </div>
-          <p className="text-slate-500 font-semibold text-sm">Synchronizing aura workspace space...</p>
+          <p className="text-slate-500 font-semibold text-sm">Synchronizing workspace workspace...</p>
         </div>
       </div>
     );

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  Sparkles, ArrowRight, Shield, Zap, Globe, Layers, Check, 
-  ChevronRight, Star, Mail, Play, Code, CheckCircle, ChevronLeft,
+  ArrowRight, Shield, Zap, Globe, Layers, Check, 
+  ChevronRight, Mail, Play, Code, CheckCircle, ChevronLeft,
   Tv, MessageSquare, Award, ArrowUpRight, HelpCircle, Download,
-  Palette, Mic, RefreshCw, Sliders, ChevronDown
+  Palette, Mic, RefreshCw, Sliders, ChevronDown, Cpu, Brain
 } from 'lucide-react';
+import Logo from './Logo';
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -126,7 +127,7 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
   const features = [
     {
       id: "ai-content",
-      icon: <Sparkles className="w-6 h-6" />,
+      icon: <Brain className="w-6 h-6" />,
       title: "AI-Powered Content Engine",
       description: "Generate professionally balanced copy, bullet structures, and speaker narratives from just a single sentence.",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600&q=80",
@@ -194,12 +195,7 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
       {/* HEADER / NAVIGATION */}
       <nav className="border-b border-slate-800/60 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4" id="nav-container">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gradient-to-tr from-indigo-500 to-rose-500 rounded-lg flex items-center justify-center text-white shadow-md shadow-indigo-500/10">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <span className="text-xl font-black tracking-tight text-white font-serif">AuraSlides</span>
-          </div>
+          <Logo className="h-8 sm:h-9" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
 
           {/* Nav links */}
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
@@ -241,8 +237,8 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
               transition={{ duration: 0.6 }}
               className="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-full px-4 py-1.5 text-xs text-indigo-300 font-semibold"
             >
-              <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
-              <span>Introducing Premium AI presentation suites</span>
+              <Cpu className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
+              <span>Professional Presentation Workspace</span>
               <ChevronRight className="w-3 h-3 text-slate-500" />
             </motion.div>
 
@@ -282,8 +278,8 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
                 onClick={onGetStarted}
                 className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-xl shadow-indigo-600/30 hover:scale-[1.02] transition-all cursor-pointer flex items-center justify-center gap-2 text-base group"
               >
-                <span>Generate Free Deck</span>
-                <Sparkles className="w-5 h-5 text-indigo-300 group-hover:rotate-12 transition-transform" />
+                <span>Create Free Deck</span>
+                <ArrowRight className="w-5 h-5 text-indigo-300 group-hover:translate-x-1 transition-transform" />
               </button>
               <a 
                 href="#demo"
@@ -313,10 +309,8 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
               </div>
               <div className="h-5 w-[1px] bg-slate-800" />
               <div className="flex items-center gap-1.5">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />)}
-                </div>
-                <span className="text-xs text-slate-400 font-bold">4.9/5 Rating (G2)</span>
+                <CheckCircle className="w-4 h-4 text-emerald-400" />
+                <span className="text-xs text-slate-400 font-bold">Rated 4.9/5 on G2 Crowd</span>
               </div>
             </motion.div>
           </div>
@@ -369,7 +363,7 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
 
               {/* Floating elements decoration */}
               <div className="absolute -top-6 -right-6 w-14 h-14 bg-indigo-600/10 border border-indigo-500/30 rounded-xl flex items-center justify-center text-indigo-400 shadow-lg blur-xs -z-10 animate-bounce" style={{ animationDuration: '6s' }}>
-                <Sparkles className="w-6 h-6" />
+                <Cpu className="w-6 h-6" />
               </div>
               <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-rose-500/10 border border-rose-500/30 rounded-full -z-10 animate-pulse" />
             </motion.div>
@@ -505,7 +499,7 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
                 The AI designs detailed bullets, compiles speaker narratives, and renders matching imagery. Polish layouts in the premium sandbox.
               </p>
               <div className="flex items-center gap-2 bg-indigo-950/40 p-2.5 rounded-xl border border-indigo-900/50">
-                <Sparkles className="w-4 h-4 text-indigo-400 animate-spin" style={{ animationDuration: '3s' }} />
+                <Cpu className="w-4 h-4 text-indigo-400 animate-spin" style={{ animationDuration: '3s' }} />
                 <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
                   <div className="bg-gradient-to-r from-indigo-500 to-rose-500 h-full w-4/5 animate-pulse" />
                 </div>
@@ -538,25 +532,25 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
                 onClick={() => setDemoTheme('professional')}
                 className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer border ${demoTheme === 'professional' ? 'bg-slate-100 text-slate-950 border-white' : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'}`}
               >
-                💼 Professional Slate
+                Professional Slate
               </button>
               <button 
                 onClick={() => setDemoTheme('creative')}
                 className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer border ${demoTheme === 'creative' ? 'bg-rose-900/30 text-rose-300 border-rose-500/50' : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'}`}
               >
-                🎨 Creative Coral
+                Creative Coral
               </button>
               <button 
                 onClick={() => setDemoTheme('elegant')}
                 className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer border ${demoTheme === 'elegant' ? 'bg-amber-950/40 text-amber-300 border-amber-500/50 font-serif' : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'}`}
               >
-                ✨ Elegant Abyssal
+                Elegant Abyssal
               </button>
               <button 
                 onClick={() => setDemoTheme('tech')}
                 className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer border ${demoTheme === 'tech' ? 'bg-emerald-950/30 text-emerald-300 border-emerald-500/50 font-mono' : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'}`}
               >
-                ⚡ Tech Emerald
+                Tech Emerald
               </button>
             </div>
 
@@ -631,10 +625,9 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
                 transition={{ duration: 0.4 }}
                 className="space-y-6 text-center sm:text-left"
               >
-                <div className="flex justify-center sm:justify-start gap-1">
-                  {[...Array(testimonials[activeTestimonial].rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-indigo-400 text-indigo-400" />
-                  ))}
+                <div className="flex justify-center sm:justify-start items-center gap-1.5 text-xs font-bold text-emerald-400 uppercase tracking-wider">
+                  <CheckCircle className="w-4 h-4" />
+                  <span>Verified Client Partner</span>
                 </div>
 
                 <blockquote className="text-lg sm:text-2xl font-bold text-white tracking-tight leading-relaxed italic font-serif">
@@ -871,7 +864,7 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
 
           <div className="max-w-2xl mx-auto space-y-4">
             <h3 className="text-3xl sm:text-5xl font-bold text-white tracking-tight font-serif">
-              Ready to generate <br />
+              Ready to create <br />
               your next winning deck?
             </h3>
             <p className="text-slate-400 font-medium text-xs sm:text-base max-w-lg mx-auto">
@@ -887,7 +880,7 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
                 className="p-4 bg-emerald-950/30 border border-emerald-800/60 rounded-2xl flex items-center justify-center gap-3 text-emerald-400 text-sm font-bold"
               >
                 <CheckCircle className="w-5 h-5 text-emerald-400" />
-                <span>You have successfully signed up for VIP template access! 🚀</span>
+                <span>You have successfully signed up for VIP template access!</span>
               </motion.div>
             ) : (
               <form 
@@ -927,12 +920,7 @@ export default function LandingPage({ onGetStarted, onLoginClick }: LandingPageP
           
           {/* Logo & description column */}
           <div className="space-y-4 md:col-span-2">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-gradient-to-tr from-indigo-500 to-rose-500 rounded-lg flex items-center justify-center text-white shadow-md">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <span className="text-xl font-black tracking-tight text-white font-serif">AuraSlides</span>
-            </div>
+            <Logo className="h-8 sm:h-9" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
             <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
               Creating high-impact outlines, presenter speech drafts, and fully styled visuals. Built on advanced generative document algorithms for professional presenters.
             </p>
