@@ -1,0 +1,6 @@
+{
+  "name": "AuraSlides",
+  "description": "Premium AI slide deck presentation and document creator. Generate beautiful, professional, tailored outlines and content visuals instantly with AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
