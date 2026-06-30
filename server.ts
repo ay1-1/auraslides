@@ -202,73 +202,88 @@ function generateFallbackSlides(topic: string, theme: string, outline: any[]) {
 
 // Authentication Endpoints (Simulated Cookie/Session using custom headers & Local Storage verification)
 app.post("/api/auth/register", (req, res) => {
-  const { email, password, name } = req.body;
-  if (!email || !password || !name) {
-    return res.status(400).json({ error: "Missing required fields" });
-  }
+  try {
+    const { email, password, name } = req.body || {};
+    if (!email || !password || !name) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
 
-  const db = readDB();
-  const existingUser = db.users.find((u: any) => u.email.toLowerCase() === email.toLowerCase());
-  if (existingUser) {
-    return res.status(400).json({ error: "User already exists with this email" });
-  }
+    const db = readDB();
+    const existingUser = db.users.find((u: any) => u.email && u.email.toLowerCase() === email.toLowerCase());
+    if (existingUser) {
+      return res.status(400).json({ error: "User already exists with this email" });
+    }
 
-  const newUser = {
-    id: 'user_' + Math.random().toString(36).substr(2, 9),
-    email: email.toLowerCase(),
-    password, // Stored directly for demo/development simplicity
-    name,
-    createdAt: new Date().toISOString()
-  };
-
-  db.users.push(newUser);
-  writeDB(db);
-
-  const { password: _, ...userWithoutPassword } = newUser;
-  res.status(201).json({ user: userWithoutPassword, token: newUser.id });
-});
-
-app.post("/api/auth/login", (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({ error: "Missing required fields" });
-  }
-
-  const db = readDB();
-  const user = db.users.find(
-    (u: any) => u.email.toLowerCase() === email.toLowerCase() && u.password === password
-  );
-
-  if (!user) {
-    return res.status(401).json({ error: "Invalid email or password" });
-  }
-
-  const { password: _, ...userWithoutPassword } = user;
-  res.json({ user: userWithoutPassword, token: user.id });
-});
-
-app.post("/api/auth/google", (req, res) => {
-  const { email, name, googleId } = req.body;
-  if (!email || !name) {
-    return res.status(400).json({ error: "Missing required fields" });
-  }
-
-  const db = readDB();
-  let user = db.users.find((u: any) => u.email.toLowerCase() === email.toLowerCase());
-
-  if (!user) {
-    user = {
-      id: 'user_' + (googleId || Math.random().toString(36).substr(2, 9)),
+    const newUser = {
+      id: 'user_' + Math.random().toString(36).substr(2, 9),
       email: email.toLowerCase(),
+      password, // Stored directly for demo/development simplicity
       name,
       createdAt: new Date().toISOString()
     };
-    db.users.push(user);
-    writeDB(db);
-  }
 
-  const { password: _, ...userWithoutPassword } = user;
-  res.json({ user: userWithoutPassword, token: user.id });
+    db.users.push(newUser);
+    writeDB(db);
+
+    const { password: _, ...userWithoutPassword } = newUser;
+    return res.status(201).json({ user: userWithoutPassword, token: newUser.id });
+  } catch (err: any) {
+    console.error("Auth registration error:", err);
+    return res.status(500).json({ error: "Internal registration error: " + (err.message || String(err)) });
+  }
+});
+
+app.post("/api/auth/login", (req, res) => {
+  try {
+    const { email, password } = req.body || {};
+    if (!email || !password) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const db = readDB();
+    const user = db.users.find(
+      (u: any) => u.email && u.email.toLowerCase() === email.toLowerCase() && u.password === password
+    );
+
+    if (!user) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    const { password: _, ...userWithoutPassword } = user;
+    return res.json({ user: userWithoutPassword, token: user.id });
+  } catch (err: any) {
+    console.error("Auth login error:", err);
+    return res.status(500).json({ error: "Internal login error: " + (err.message || String(err)) });
+  }
+});
+
+app.post("/api/auth/google", (req, res) => {
+  try {
+    const { email, name, googleId } = req.body || {};
+    if (!email || !name) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const db = readDB();
+    let user = db.users.find((u: any) => u.email && u.email.toLowerCase() === email.toLowerCase());
+
+    if (!user) {
+      user = {
+        id: 'user_' + (googleId || Math.random().toString(36).substr(2, 9)),
+        email: email.toLowerCase(),
+        name,
+        createdAt: new Date().toISOString()
+      };
+      db.users.push(user);
+      writeDB(db);
+    }
+
+    const { password: _, ...userWithoutPassword } = user;
+    return res.json({ user: userWithoutPassword, token: user.id });
+  } catch (err: any) {
+    console.error("Auth google error:", err);
+    return res.status(500).json({ error: "Internal google sign-in error: " + (err.message || String(err)) });
+  }
 });
 
 // Better Auth [...all] routes wildcards
@@ -1157,6 +1172,19 @@ app.post("/api/export/share", (req, res) => {
   const shareUrl = `${protocol}://${host}/share/view/${targetId}`;
 
   res.json({ shareUrl, success: true });
+});
+
+// Catch-all route for any undefined /api/* endpoints to ensure they always return JSON instead of falling through to HTML index.html
+app.all("/api/*", (req, res) => {
+  res.status(404).json({ error: `API endpoint '${req.method} ${req.path}' not found.` });
+});
+
+// Global JSON Error Handler
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error("[Global Error Handler]", err);
+  res.status(err?.status || 500).json({
+    error: err?.message || "A severe internal server-side error occurred."
+  });
 });
 
 
