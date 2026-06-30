@@ -42,7 +42,15 @@ export default function Auth({ onAuthSuccess, onBackToHome }: AuthProps) {
         body: JSON.stringify(body),
       });
 
-      const data = await response.json();
+      const contentType = response.headers.get('content-type');
+      let data: any;
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        console.error('Non-JSON response:', text);
+        throw new Error('The server returned an invalid or HTML response. Please verify endpoint path or server state.');
+      }
 
       if (!response.ok) {
         throw new Error(data.error || 'Something went wrong. Please try again.');
@@ -80,7 +88,16 @@ export default function Auth({ onAuthSuccess, onBackToHome }: AuthProps) {
           body: JSON.stringify(testUser),
         });
 
-        const data = await response.json();
+        const contentType = response.headers.get('content-type');
+        let data: any;
+        if (contentType && contentType.includes('application/json')) {
+          data = await response.json();
+        } else {
+          const text = await response.text();
+          console.error('Non-JSON response:', text);
+          throw new Error('Google Auth endpoint returned a non-JSON response.');
+        }
+
         if (!response.ok) {
           throw new Error(data.error || 'Google Authentication failed.');
         }
