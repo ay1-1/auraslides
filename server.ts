@@ -15,7 +15,9 @@ const PORT = 3000;
 app.use(express.json({ limit: '10mb' }));
 
 // Ensure DB file exists
-const DB_PATH = path.join(process.cwd(), 'db.json');
+const DB_PATH = process.env.VERCEL
+  ? path.join('/tmp', 'db.json')
+  : path.join(process.cwd(), 'db.json');
 if (!fs.existsSync(DB_PATH)) {
   fs.writeFileSync(DB_PATH, JSON.stringify({ users: [], presentations: [] }, null, 2));
 }
@@ -1209,4 +1211,8 @@ async function startServer() {
   });
 }
 
-startServer();
+if (process.env.VERCEL !== '1') {
+  startServer();
+}
+
+export default app;
