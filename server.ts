@@ -3,7 +3,6 @@ import path from "path";
 import fs from "fs";
 import dotenv from "dotenv";
 import { GoogleGenAI, Type } from "@google/genai";
-import { createServer as createViteServer } from "vite";
 import pptxgen from "pptxgenjs";
 import { jsPDF } from "jspdf";
 
@@ -1193,6 +1192,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 // Serve static assets and Vite middleware
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
